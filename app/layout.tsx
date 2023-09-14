@@ -1,6 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Steps from './components/Steps';
+import Nav from './components/Nav';
+import NavContext from './util/NavContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +20,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} p-5`}>
+        {/* Wrap content with context */}
+        <NavContext>
+          <Steps />
+          {children}
+
+          <Nav />
+        </NavContext>
+      </body>
     </html>
   );
 }
