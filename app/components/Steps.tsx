@@ -6,7 +6,7 @@ export default function Steps() {
   // Destructure step from context
   const { step } = useContext(navContext);
   return (
-    <div>
+    <div className="my-5">
       <h2 className="sr-only">Steps</h2>
       <div className="after:mt-4 after:block after:h-1 after:w-full after:rounded-lg after:bg-gray-200">
         <ol className="grid grid-cols-3 text-sm font-medium text-gray-500">
@@ -27,7 +27,7 @@ export default function Steps() {
               </svg>
             </span>
 
-            <span className="hidden sm:block"> Details </span>
+            <span className="hidden sm:block"> Bio Data </span>
 
             <svg
               className="h-6 w-6 sm:hidden"
@@ -35,7 +35,7 @@ export default function Steps() {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              stroke-width="2"
+              strokeWidth="2"
             >
               <path
                 stroke-linecap="round"
@@ -70,7 +70,7 @@ export default function Steps() {
               </svg>
             </span>
 
-            <span className="hidden sm:block"> Address </span>
+            <span className="hidden sm:block"> Uploads </span>
 
             <svg
               className="mx-auto h-6 w-6 sm:hidden"
@@ -78,7 +78,7 @@ export default function Steps() {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              stroke-width="2"
+              strokeWidth="2"
             >
               <path
                 stroke-linecap="round"
@@ -119,7 +119,7 @@ export default function Steps() {
               </svg>
             </span>
 
-            <span className="hidden sm:block"> Payment </span>
+            <span className="hidden sm:block"> Questionaire </span>
 
             <svg
               className="h-6 w-6 sm:hidden"
@@ -127,7 +127,7 @@ export default function Steps() {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              stroke-width="2"
+              strokeWidth="2"
             >
               <path
                 stroke-linecap="round"

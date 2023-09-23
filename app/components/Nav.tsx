@@ -1,32 +1,45 @@
-'use client';
-import { useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { navContext } from '../util/NavContext';
 
 export default function Nav() {
   const { step, setStep } = useContext(navContext);
+  const [btnState, setBtnState] = useState('Next');
 
-  const stepIncrement = (step: number) => {
-    setStep(() => (step < 2 ? step + 1 : 2));
+  const stepIncrement = () => {
+    setStep((prev) => (prev !== 2 ? prev + 1 : 2));
   };
-  const stepDecrement = (step: number) => {
-    setStep(() => (step > 0 ? step - 1 : 0));
+
+  const stepDecrement = () => {
+    setStep((prev) => (prev > 0 ? prev - 1 : 0));
   };
+
+  useEffect(() => {
+    if (step === 2) {
+      return setBtnState('Submit');
+    }
+    setBtnState('Next');
+  }, [step]);
 
   return (
-    <nav className="flex justify-between my-5">
+    <nav className="flex justify-between gap-5 my-5">
       <button
-        className={`${step !== 0 ? 'text-blue-600' : 'text-gray-300'}`}
         type="button"
-        onClick={() => stepDecrement(step)}
+        onClick={stepDecrement}
+        className={`block w-full mt-4 py-2 rounded-2xl text-white font-semibold mb-2 ${
+          step !== 0 ? 'bg-indigo-600' : 'bg-gray-400'
+        }`}
       >
         Previous
       </button>
+
       <button
-        className={`text-blue-600 ${step === 2 && 'font-semibold'}`}
-        type={step === 2 ? 'submit' : 'button'}
-        onClick={() => stepIncrement(step)}
+        type={btnState === 'Submit' ? 'submit' : 'button'}
+        onClick={stepIncrement}
+        className={`block w-full mt-4 py-2 rounded-2xl bg-indigo-600 text-white font-semibold mb-2 ${
+          step === 2 && 'font-semibold'
+        }`}
       >
-        {step === 2 ? 'Submit' : 'Next'}
+        {btnState}
       </button>
     </nav>
   );
