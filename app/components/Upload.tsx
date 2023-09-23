@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Upload({ title }: { title: string }) {
   return (
-    <div className="bg-gray-600 p-3 mb-3 rounded-xl">
+    <div className="sm:w-5/12 bg-gray-600 p-3 mb-3 rounded-xl">
       <label className="block text-sm font-medium text-white">{title}</label>
       <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
         <div className="space-y-1 text-center">
@@ -20,7 +20,7 @@ export default function Upload({ title }: { title: string }) {
               stroke-linejoin="round"
             />
           </svg>
-          <div className="flex text-sm text-gray-600">
+          <div className="flex flex-wrap justify-center gap-1 text-sm text-gray-600">
             <label
               htmlFor="file-upload"
               className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"

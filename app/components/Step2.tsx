@@ -9,20 +9,11 @@ export default function Step2() {
       <Introduction />
       {/* <Step1Content /> */}
 
-      <div className="">
+      <div className="flex flex-col sm:flex-row flex-wrap justify-between gap-2">
         <Upload title="Birth Certificate" />
-      </div>
-      <div>
         <Upload title="Driver's License" />
-      </div>
-      <div>
         <Upload title="0 Level" />
-      </div>
-
-      <div>
         <Upload title="Marriage Certificate" />
-      </div>
-      <div>
         <Upload title="Office ID Card" />
       </div>
     </div>
