@@ -14,17 +14,17 @@ export default function FormCase({ children }: { children: ReactNode }) {
 
     console.log(person)
     // console.log(data.target[0].value)
-if (!file) return
+if (!file) return;
 
     try {
-      const data = new FormData()
-      data.set('file', file)
-data.set('name', "David")
+      const data = new FormData();
+      data.set('file', file);
+      data.set('name', "David");
 
       const res = await fetch('/api/', {
         method: 'POST',
         body: data
-      })
+      });
       // handle the error
       if (!res.ok) throw new Error(await res.text())
     } catch (e: any) {
@@ -34,6 +34,7 @@ data.set('name', "David")
     
 
     setIsSubmitted(true);
+
   };
 
   return (
