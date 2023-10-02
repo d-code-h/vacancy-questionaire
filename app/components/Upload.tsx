@@ -1,6 +1,10 @@
-import React from 'react';
+"use client"
+import React, {useContext} from 'react';
+import { navContext } from '../util/NavContext';
 
 export default function Upload({ title }: { title: string }) {
+  const {file, setFile} = useContext(navContext)
+  
   return (
     <div className="sm:w-5/12 bg-gray-600 p-3 mb-3 rounded-xl">
       <label className="block text-sm font-medium text-white">{title}</label>
@@ -22,14 +26,17 @@ export default function Upload({ title }: { title: string }) {
           </svg>
           <div className="flex flex-wrap justify-center gap-1 text-sm text-gray-600">
             <label
-              htmlFor="file-upload"
+              htmlFor="file"
               className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
             >
               <span className="p-1">Upload a file</span>
               <input
-                id="file-upload"
-                name="file-upload"
+                id="file"
+                name="file"
                 type="file"
+                
+        onChange={(e) => setFile(e.target.files?.[0])}
+                
                 className="sr-only"
               />
             </label>

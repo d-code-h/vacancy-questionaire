@@ -31,8 +31,8 @@ export default function Step1Content() {
           name="name"
           id="fullName"
           placeholder="Full name"
-          value={name}
-          onChange={(e) => handleChange(e)}
+         // value={name}
+         // onChange={(e) => handleChange(e)}
 
         />
       </div>
