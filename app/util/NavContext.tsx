@@ -22,7 +22,7 @@ export default function NavContext({ children }: { children: ReactNode }) {
   // States
   const [step, setStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [file, setFile] = useState<file>()
+  const [files, setFiles] = useState<file>([])
   const [person, updatePerson] = useState({
     name: '',
     gender: null,
@@ -49,8 +49,8 @@ export default function NavContext({ children }: { children: ReactNode }) {
         setIsSubmitted,
         person,
         handleChange,
-        file,
-        setFile
+        files,
+        setFiles
       }}
     >
       {children}

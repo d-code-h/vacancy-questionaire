@@ -5,7 +5,7 @@ import { navContext } from '../util/NavContext';
 import Form from './Form';
 
 export default function FormCase({ children }: { children: ReactNode }) {
-  const { setIsSubmitted,person, file } = useContext(navContext);
+  const { setIsSubmitted,person, files } = useContext(navContext);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -13,15 +13,22 @@ export default function FormCase({ children }: { children: ReactNode }) {
     // const data = e.target.name;
 
     console.log(person)
+    console.log(files)
+
     // console.log(data.target[0].value)
-if (!file) return;
+if (files.length === 0) return;
 
     try {
       const data = new FormData();
-      data.set('person', {
-        file,
-        ...person
-      });
+      files.forEach((file, i) => {
+
+        data.set(`file${i}`, file);
+      })
+      // data.set('file2', files[1]);
+
+      data.set('person', JSON.stringify(person))
+      
+      console.log(data)
 
       const res = await fetch('/api/', {
         method: 'POST',

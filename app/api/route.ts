@@ -2,7 +2,7 @@ import { writeFile } from 'fs/promises'
 import {NextResponse} from "next/server"
 import streamifier from "streamifier";
 import {v2 as cloudinary} from 'cloudinary';
-
+import fs from 'fs/promises'
 // Return "https" URLs by setting secure: true
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME,
@@ -15,7 +15,7 @@ cloudinary.config({
 // Use the uploaded file's name as the asset's public ID and 
     // allow overwriting the asset with new versions
     const options = {
-    //  use_filename: true,
+      use_filename: true,
       unique_filename: true,
       overwrite: true,
       colors:true
@@ -35,27 +35,66 @@ export async function POST(request:Request){
    // console.log(request)
     // const data = await request.json()
    // console.log(data)
-const data = await request.formData()
+const d = await request.formData()
   //const file: File | null = data.get('file') as unknown as File
-  const person = data.get('person');
-  console.log(person.email);
+  const data = d.get('person');
+  const person = await JSON.parse(data);
+
+  console.log(d.has.length)
+let l = d.length -1;
+console.log(l)
+let files = [];
+while (l >= 0) {
+  files.push(
+    d.get(`file${l}`)
+  )
+  l = l -1;
+}
+console.log(files)
+
+  // const files = d.get('files');
+  // const f = await JSON.parse(files)
+  // console.log(files)
+  // console.log(f)
+  // console.log(f[0])
+
+
+  // const [fx, fy] = files;
+  // console.log(fx);
+  // console.log(fy);
+
+  // const files = f;
+
+  // console.log(person);
+
+
+
+  // console.log(person.email);
   
-  const {name, file} = person;
+  
+  const {email} = person;
   //console.log(name, email)
   
 
-  if (!file) {
-return NextResponse.json({
-    method: "POST",
-    name: name,
-    success: false
-})
+  // if (!fx && !fy) {
+  // if (files.length === 0) {
+
+//     console.log("A mighty thunder blews")
+// return NextResponse.json({
+//     method: "POST",
+//     success: false
+// })
     
-  }
+  // }
 
-  const bytes = await file.arrayBuffer()
-  const buffer = Buffer.from(bytes)
+  // console.log(files)
 
+  // const bytes1 = await fx.arrayBuffer()
+  // const buffer1 = Buffer.from(bytes1)
+
+
+  // const bytes2 = await fy.arrayBuffer()
+  // const buffer2 = Buffer.from(bytes2)
   // With the file data in the buffer, you can do whatever you want with it.
   // For this, we'll just write it to the filesystem in a new location
   
@@ -69,7 +108,7 @@ return NextResponse.json({
 
 let cld_upload_stream = cloudinary.uploader.upload_stream(
     {
-      folder: `vacancy/${name}`,
+      folder: `vacancy/${email}`,
       ...options
     },
     function(error, result) {
@@ -77,7 +116,7 @@ let cld_upload_stream = cloudinary.uploader.upload_stream(
     }
 );
 
-streamifier.createReadStream(buffer).pipe(cld_upload_stream);
+// await Promise.all( [streamifier.createReadStream(buffer1).pipe(cld_upload_stream), streamifier.createReadStream(buffer2).pipe(cld_upload_stream)]);
 
 
 
@@ -92,13 +131,8 @@ streamifier.createReadStream(buffer).pipe(cld_upload_stream);
 
     return NextResponse.json({
       method: "POST",
-      name: name,
       success: true
     })
   }
 
-//  console.log({method: "POST",
-//     name: name,
-//     success: true
-// })
 }

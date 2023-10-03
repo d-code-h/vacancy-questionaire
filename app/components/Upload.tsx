@@ -2,8 +2,8 @@
 import React, {useContext} from 'react';
 import { navContext } from '../util/NavContext';
 
-export default function Upload({ title }: { title: string }) {
-  const {file, setFile} = useContext(navContext)
+export default function Upload({ title, name }: { title: string, name: string }) {
+  const {files, setFiles} = useContext(navContext)
   
   return (
     <div className="sm:w-5/12 bg-gray-600 p-3 mb-3 rounded-xl">
@@ -32,10 +32,10 @@ export default function Upload({ title }: { title: string }) {
               <span className="p-1">Upload a file</span>
               <input
                 id="file"
-                name="file"
+                name={name}
                 type="file"
                 
-        onChange={(e) => setFile(e.target.files?.[0])}
+        onChange={(e) => setFiles((prev) => [...prev, e.target.files?.[0]])}
                 
                 className="sr-only"
               />
