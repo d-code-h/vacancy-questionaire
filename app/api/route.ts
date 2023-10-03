@@ -1,5 +1,6 @@
 import { writeFile } from 'fs/promises'
 import {NextResponse} from "next/server"
+import streamifier from "streamifier";
 import {v2 as cloudinary} from 'cloudinary';
 
 // Return "https" URLs by setting secure: true
@@ -14,8 +15,8 @@ cloudinary.config({
 // Use the uploaded file's name as the asset's public ID and 
     // allow overwriting the asset with new versions
     const options = {
-      use_filename: true,
-      unique_filename: false,
+    //  use_filename: true,
+      unique_filename: true,
       overwrite: true,
       colors:true
     };
@@ -23,7 +24,7 @@ cloudinary.config({
 
 
 export async function GET(request:Request){
-    console.log(request)
+  
   return NextResponse.json({
     method: "GET",
     name: "Habeeb Yunus Habeeb"
@@ -35,8 +36,12 @@ export async function POST(request:Request){
     // const data = await request.json()
    // console.log(data)
 const data = await request.formData()
-  const file: File | null = data.get('file') as unknown as File
-const name = data.get("name")
+  //const file: File | null = data.get('file') as unknown as File
+  const person = data.get('person');
+  console.log(person.email);
+  
+  const {name, file} = person;
+  //console.log(name, email)
   
 
   if (!file) {
@@ -60,10 +65,25 @@ return NextResponse.json({
 
   try {
     // await writeFile(path, buffer)
-    const result = await cloudinary.uploader.upload("../uploads/anne-laure-p-45pxdvG7wa4-unsplash.jpg", options);
+   // const result = await cloudinary.uploader.upload("../uploads/anne-laure-p-45pxdvG7wa4-unsplash.jpg", options);
+
+let cld_upload_stream = cloudinary.uploader.upload_stream(
+    {
+      folder: `vacancy/${name}`,
+      ...options
+    },
+    function(error, result) {
+        console.log(error, result);
+    }
+);
+
+streamifier.createReadStream(buffer).pipe(cld_upload_stream);
+
+
+
 
     // const result = await cloudinary.uploader.upload(file.name, options);
-    console.log(result)
+    //console.log(result)
   } catch (error) {
     console.log("Something unfortunate happened here!!!")
     console.log(error)

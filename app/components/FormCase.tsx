@@ -18,8 +18,10 @@ if (!file) return;
 
     try {
       const data = new FormData();
-      data.set('file', file);
-      data.set('name', "David");
+      data.set('person', {
+        file,
+        ...person
+      });
 
       const res = await fetch('/api/', {
         method: 'POST',
